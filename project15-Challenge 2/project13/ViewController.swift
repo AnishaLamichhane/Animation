@@ -38,6 +38,11 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate, UINavi
         guard let image = info[.editedImage] as? UIImage  else { return}
         dismiss(animated: true )
         currentImage = image
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: [],animations: {
+            self.imageView.alpha = 0.1
+        }) { finished in
+            self.imageView.alpha = 1
+        }
         
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
