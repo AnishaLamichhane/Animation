@@ -53,20 +53,28 @@ class ViewController: UIViewController {
     }
     @IBAction func buttonTapped(_ sender: UIButton) {
         var title:String = ""
+         UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: [],animations: { [weak self] in
         for i in 0...2 {
-            if sender.tag == correctAnswer {
+            if sender.tag == self?.correctAnswer {
+                sender.transform = CGAffineTransform(translationX: 8 ,y: 8)
+                
                 title = "Correct!"
-                score += 1
-                break
+                self?.score += 1
+               
             }
             else {
-                if i != correctAnswer && sender.tag == i {
-                     title = "wrong ! this is \(countries[i])"
-                     score -= 1
+                if i != self?.correctAnswer && sender.tag == i {
+                    sender.transform = CGAffineTransform(translationX: 8 ,y: 8)
+                    
+                    title = "wrong ! this is \(self!.countries[i])"
+                     self?.score -= 1
                     
                 }
             }
         }
+    }){ finished in
+        sender.transform = .identity
+    }
             if askedQuestion < 10 {
                 let ac = UIAlertController(title: title, message: "Your score is \(score).", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
